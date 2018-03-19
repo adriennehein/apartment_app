@@ -1,0 +1,176 @@
+import React, { Component } from 'react';
+import {
+  Alert,
+  Button,
+  Col,
+  ControlLabel,
+  FormGroup,
+  FormControl,
+  Row
+} from 'react-bootstrap';
+
+class NewApartment extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      form:{
+        apt_name: '',
+        street1: '',
+        street2: '',
+        city: '',
+        zip: '',
+        state: '',
+        country: '',
+        owner_name: '',
+        phone: '',
+        contact_hours: ''
+      }
+    }
+  }
+
+  handleChange(event){
+    const formState = Object.assign({}, this.state.form)
+    formState[event.target.name] = event.target.value
+    this.setState({form: formState})
+  }
+
+  handleSubmit(){
+    this.props.onSubmit(this.state.form)
+  }
+
+  render() {
+    return (
+      <form>
+        <Row>
+          <Col xs={6}>
+            {this.props.errors &&
+              <Alert bsStyle="danger">
+                Please check the form and try again.
+              </Alert>
+            }
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={6}>
+            <FormGroup>
+              <ControlLabel id="apt_name">Name</ControlLabel>
+              <FormControl
+                type="text"
+                name="apt_name"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.form.apt_name} />
+            </FormGroup>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={6}>
+            <FormGroup>
+              <ControlLabel id="street1">Address</ControlLabel>
+              <FormControl
+                type="text"
+                name="street1"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.form.street1} />
+            </FormGroup>
+          </Col>
+          <Col xs={6}>
+            <FormGroup>
+              <ControlLabel id="street2">Apt or Unit</ControlLabel>
+              <FormControl
+                type="text"
+                name="street2"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.form.street2} />
+            </FormGroup>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={3}>
+            <FormGroup>
+              <ControlLabel id="city">City</ControlLabel>
+              <FormControl
+                type="text"
+                name="city"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.form.city} />
+            </FormGroup>
+          </Col>
+          <Col xs={3}>
+            <FormGroup>
+              <ControlLabel id="state">State</ControlLabel>
+              <FormControl
+                type="text"
+                name="state"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.form.state} />
+            </FormGroup>
+          </Col>
+          <Col xs={3}>
+            <FormGroup>
+              <ControlLabel id="zip">Zipcode</ControlLabel>
+              <FormControl
+                type="text"
+                name="zip"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.form.zip} />
+            </FormGroup>
+          </Col>
+          <Col xs={3}>
+            <FormGroup>
+              <ControlLabel id="country">Country</ControlLabel>
+              <FormControl
+                type="text"
+                name="country"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.form.country} />
+            </FormGroup>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={4}>
+            <FormGroup>
+              <ControlLabel id="owner_name">Contact</ControlLabel>
+              <FormControl
+                type="text"
+                name="owner_name"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.form.owner_name} />
+            </FormGroup>
+          </Col>
+          <Col xs={4}>
+            <FormGroup>
+              <ControlLabel id="phone">Phone</ControlLabel>
+              <FormControl
+                type="text"
+                name="phone"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.form.phone} />
+            </FormGroup>
+          </Col>
+          <Col xs={4}>
+            <FormGroup>
+              <ControlLabel id="contact_hours">Availability</ControlLabel>
+              <FormControl
+                type="text"
+                name="contact_hours"
+                onChange={this.handleChange.bind(this)}
+                value={this.state.form.contact_hours} />
+            </FormGroup>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={6}>
+            <Button id='submit' onClick={this.handleSubmit.bind(this)}>List Apartment</Button>
+          </Col>
+        </Row>
+      </form>
+    )
+  }
+}
+
+export default NewApartment
