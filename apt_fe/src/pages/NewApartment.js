@@ -6,6 +6,7 @@ import {
   ControlLabel,
   FormGroup,
   FormControl,
+  HelpBlock,
   Row
 } from 'react-bootstrap';
 
@@ -38,6 +39,17 @@ class NewApartment extends Component {
     this.props.onSubmit(this.state.form)
   }
 
+  errorsFor(attribute){
+    var errorString = ""
+    if(this.props.errors && this.props.errors[attribute]){
+      const errors = this.props.errors[attribute]
+      if(errors){
+        errorString = errors.join(", ")
+      }
+    }
+    return errorString === "" ? null : errorString
+  }
+
   render() {
     return (
       <form>
@@ -53,13 +65,18 @@ class NewApartment extends Component {
 
         <Row>
           <Col xs={6}>
-            <FormGroup>
+            <FormGroup
+              id="name-form-group"
+              validationState={this.errorsFor('apt_name') && 'error'}>
               <ControlLabel id="apt_name">Name</ControlLabel>
               <FormControl
                 type="text"
                 name="apt_name"
                 onChange={this.handleChange.bind(this)}
                 value={this.state.form.apt_name} />
+              {this.errorsFor('apt_name') &&
+                <HelpBlock id="name-help-block">{this.errorsFor('apt_name')}</HelpBlock>
+              }
             </FormGroup>
           </Col>
         </Row>

@@ -31,12 +31,19 @@ it('calls submitHandler on submit', () =>{
 
 it('shows flash message when there is an error', () =>{
   const mockSubmitHandler = jest.fn()
-  const validationErrors = [
-    {
-      param: 'apt_name',
-      msg: 'Is required.'
+  const validationErrors = {
+      apt_name: ['Is required.']
     }
-  ]
   const component = mount(<NewApartment onSubmit={mockSubmitHandler} errors={validationErrors}/>)
   expect(component.find('.alert-danger').length).toBe(1)
+})
+
+it('highlights name input when there is an error', ()=>{
+  const mockSubmitHandler = jest.fn()
+  const validationErrors = {
+    apt_name: ['Is required.']
+  }
+
+  const component = mount(<NewApartment onSubmit={mockSubmitHandler} errors={validationErrors}/>)
+  expect(component.find('#name-form-group.has-error').length).toBe(1)
 })
