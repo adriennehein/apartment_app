@@ -8,6 +8,7 @@ import Adapter from 'enzyme-adapter-react-16';
 Enzyme.configure({ adapter: new Adapter() });
 
 const apartments= [
+  
   {
     apt_name: 'Vintage Golden Hill',
     street1: '30th and B St',

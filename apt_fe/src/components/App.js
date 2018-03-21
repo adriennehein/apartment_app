@@ -6,9 +6,9 @@ import {
   PageHeader,
   Row
 } from 'react-bootstrap';
-import './App.css';
-import Apartments from './pages/Apartments'
-import NewApartment from './pages/NewApartment'
+import '../css/App.css';
+import Apartments from '../pages/Apartments'
+import NewApartment from '../pages/NewApartment'
 import fetch from 'isomorphic-fetch'
 
 class App extends Component {

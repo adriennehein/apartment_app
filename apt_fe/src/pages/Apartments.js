@@ -7,6 +7,7 @@ import {
 } from 'react-bootstrap';
 
 class Apartments extends Component {
+
   render() {
     return (
       <Row>

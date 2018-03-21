@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import App from '../App';
+import App from '../pages/App';
 import { mount } from 'enzyme'
 import Enzyme from 'enzyme';
 import Adapter from 'enzyme-adapter-react-16';
@@ -13,13 +13,13 @@ it('renders without crashing', () => {
   ReactDOM.render(<App />, div);
   ReactDOM.unmountComponentAtNode(div);
 })
-
+//
 // it('renders the title', ()=>{
 //   const app = mount(<App />)
 //   expect(app.find('PageHeader').text()).toContain('Apartment Listings')
 // })
-
-// it('renders create a cat form', ()=>{
+//
+// it('renders create an apartment form', ()=>{
 //   const app = mount(<App />)
 //   expect(app.find('.subtitle').text()).toEqual('New Listing')
 // })
