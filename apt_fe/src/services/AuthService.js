@@ -1,4 +1,5 @@
 import decode from 'jwt-decode';
+import fetch from 'isomorphic-fetch'
 export default class AuthService {
     constructor(domain) {
         this.domain = domain || 'http://localhost:3000' // We can pass in the backend server, or use a default for dev
@@ -6,6 +7,8 @@ export default class AuthService {
         this.login = this.login.bind(this)
         this.getUserId = this.getUserId.bind(this)
     }
+
+
 
     login(email, password) {
       return this.fetch(`${this.domain}/user_token`, { // Our backend endpoint

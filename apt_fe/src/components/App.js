@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
-import {BrowserRouter as Router, Link, Route, Redirect} from 'react-router-dom';
+import {BrowserRouter as Router, Route, Redirect} from 'react-router-dom';
 import {
+  Button,
   Col,
   Grid,
   PageHeader,
@@ -9,7 +10,11 @@ import {
 import '../css/App.css';
 import Apartments from '../pages/Apartments'
 import NewApartment from '../pages/NewApartment'
+import withAuth from './withAuth'
+import AuthService from '../services/AuthService';
 import fetch from 'isomorphic-fetch'
+
+const Auth = new AuthService()
 
 class App extends Component {
   constructor(props) {
@@ -18,7 +23,8 @@ class App extends Component {
       apiUrl: "http://localhost:3000",
       apartments: [],
       newApartmentSuccess: false,
-      errors: null
+      errors: null,
+      user: null
     }
   }
 
@@ -31,6 +37,13 @@ class App extends Component {
       this.setState({apartments: parsedResponse})
     })
   }
+
+  handleLogout() {
+    Auth.logout()
+    this.props.history.replace('/login')
+  }
+
+
 
   newApartmentSubmit(apartment){
     fetch(`${this.state.apiUrl}/apartments`,
@@ -71,7 +84,8 @@ class App extends Component {
                 <Row>
                   <Col xs={8}>
                     Apartment Listings
-                    <small className='subtitle'>New Listing</small>
+                    <br/>
+                    <small className='subtitle'>Add New Listing</small>
                   </Col>
                 </Row>
               </PageHeader>
@@ -98,20 +112,13 @@ class App extends Component {
               {!this.state.newApartmentSuccess &&
                   <Redirect to='/' />
               }
-              <Col xs={4}>
-                <small>
-                  <Link to='/'
-                        id='new-apartment-link'
-                        onClick={()=>{this.setState({newApartmentSuccess:false})}}
-                        >Add Apartment</Link>
-                </small>
-              </Col>
             </Grid>
           )} />
+          <Button className='form-submit' onClick={this.handleLogout.bind(this)}>Logout</Button>
         </div>
       </Router>
     );
   }
 }
 
-export default App;
+export default withAuth(App);
