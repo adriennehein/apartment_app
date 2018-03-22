@@ -7,13 +7,30 @@ import {
 } from 'react-bootstrap';
 
 class Apartments extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      apiUrl: "http://localhost:3000",
+      apartments: []
+    }
+  }
+
+  componentWillMount(){
+    fetch(`${this.state.apiUrl}/apartments`)
+    .then((rawResponse) =>{
+      return rawResponse.json()
+    })
+    .then((parsedResponse)=>{
+      this.setState({apartments: parsedResponse})
+    })
+  }
 
   render() {
     return (
       <Row>
         <Col xs={12}>
           <ListGroup>
-            {this.props.apartments.map((apartment, index) =>{
+            {this.state.apartments.map((apartment, index) =>{
               return (
                 <ListGroupItem
                   key={index}
