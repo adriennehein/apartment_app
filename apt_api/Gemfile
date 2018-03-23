@@ -22,6 +22,8 @@ gem 'knock'
 gem 'cancancan'
 gem 'rolify'
 
+gem 'paperclip'
+
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
 

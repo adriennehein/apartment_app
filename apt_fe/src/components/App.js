@@ -36,6 +36,11 @@ class App extends Component {
     .then((parsedResponse)=>{
       this.setState({apartments: parsedResponse})
     })
+
+    const userId = Auth.getUserId()
+    Auth.fetch(`http://localhost:3000/users/${userId}`).then( res => {
+      this.setState({ user: res })
+    })
   }
 
   handleLogout() {
@@ -48,7 +53,7 @@ class App extends Component {
   newApartmentSubmit(apartment){
     fetch(`${this.state.apiUrl}/apartments`,
         {
-          body: JSON.stringify(apartment),  // <- we need to stringify the json for fetch
+          body: JSON.stringify({apartment: apartment}),  // <- we need to stringify the json for fetch
           headers: {  // <- We specify that we're sending JSON, and expect JSON back
             'Content-Type': 'application/json'
           },
@@ -87,6 +92,24 @@ class App extends Component {
                     <br/>
                     <small className='subtitle'>Add New Listing</small>
                   </Col>
+                </Row>
+                <Row>
+                  {this.state.user &&
+                    <div>
+                      <h2>Your Account</h2>
+                      <h6>Name: {this.state.user.name}</h6>
+                      <h6>Email: {this.state.user.email}</h6>
+
+                      <h6>Your Roles</h6>
+                      <ul>
+                        {this.state.user.roles.map( role => {
+                          return(
+                            <li key={role.name}>{role.name}</li>
+                          )
+                        })}
+                      </ul>
+                    </div>
+                  }
                 </Row>
               </PageHeader>
               <NewApartment onSubmit={this.newApartmentSubmit.bind(this)} errors={this.state.errors} />
