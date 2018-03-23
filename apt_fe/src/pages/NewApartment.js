@@ -24,7 +24,8 @@ class NewApartment extends Component {
         country: '',
         owner_name: '',
         phone: '',
-        contact_hours: ''
+        contact_hours: '',
+        avatar_base: null
       }
     }
   }
@@ -37,6 +38,24 @@ class NewApartment extends Component {
 
   handleSubmit(){
     this.props.onSubmit(this.state.form)
+  }
+
+  getBase64(file) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file);
+      reader.onload = () => resolve(reader.result);
+      reader.onerror = error => reject(error)
+    });
+  }
+
+  fileChangeHandler(event){
+    const file = event.target.files[0]
+    this.getBase64(file).then( (fileString) => {
+      const formState = Object.assign({}, this.state.form)
+      formState.avatar_base = fileString
+      this.setState({form: formState})
+    })
   }
 
   errorsFor(attribute){
@@ -176,6 +195,18 @@ class NewApartment extends Component {
                 name="contact_hours"
                 onChange={this.handleChange.bind(this)}
                 value={this.state.form.contact_hours} />
+            </FormGroup>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col xs={6}>
+            <FormGroup>
+              <ControlLabel id="avatar">Image</ControlLabel>
+              <input
+                type="file"
+                onChange={this.fileChangeHandler.bind(this)}
+              />
             </FormGroup>
           </Col>
         </Row>

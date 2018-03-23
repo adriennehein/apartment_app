@@ -39,9 +39,13 @@ class Apartments extends Component {
                       <span className='apartment-name'>
                         {apartment.apt_name}
                       </span>
-                      - <small className='apartment-street1'>Located at: {apartment.street1}</small>
+                      - <small className='apartment-street1'>Located at: {apartment.street1}, {apartment.city}</small>
                     </h4>
                   }>
+                  <img
+                    alt=""
+                    src={apartment.avatar}
+                  />
                 </ListGroupItem>
               )
             })}
